@@ -41,7 +41,7 @@ const loginService = {
 			throw new BizError(t('pwdLengthLimit'));
 		}
 
-		if (emailUtils.getName(email).length > 30) {
+		if (emailUtils.getName(email).length < 3 || emailUtils.getName(email).length > 30) {
 			throw new BizError(t('emailLengthLimit'));
 		}
 

@@ -26,7 +26,7 @@ const en = {
 	sendEmailNotCurUser: 'Sender email does not belong to current user',
 	notExistEmailReply: 'Mail does not exist and cannot be replied to',
 	pwdLengthLimit: 'Password length exceeds the limit',
-	emailLengthLimit: 'Email length exceeds the limit',
+	emailLengthLimit: 'Email length requires not less than 3 and not more than 30 characters',
 	pwdMinLengthLimit: 'Password must be at least 6 characters',
 	notEmailDomain: 'Invalid email domain',
 	emptyRegKey: 'Invite code cannot be empty',

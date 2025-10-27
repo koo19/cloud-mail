@@ -26,7 +26,7 @@ const zh = {
 	sendEmailNotCurUser: '发件人邮箱非当前用户所有',
 	notExistEmailReply: '邮件不存在无法回复',
 	pwdLengthLimit: '密码长度超出限制',
-	emailLengthLimit: '邮箱长度超出限制',
+	emailLengthLimit: '邮箱用户名需要不小于3位，不大于30位',
 	pwdMinLengthLimit: '密码不能小于6位',
 	notEmailDomain: '非法邮箱域名',
 	emptyRegKey: '注册码不能为空',

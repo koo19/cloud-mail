@@ -294,6 +294,10 @@ const userService = {
 			throw new BizError(t('notEmailDomain'));
 		}
 
+		if (emailUtils.getName(email).length < 3 || emailUtils.getName(email).length > 30) {
+			throw new BizError(t('emailLengthLimit'));
+		}
+
 		if (password.length < 6) {
 			throw new BizError(t('pwdMinLengthLimit'));
 		}
