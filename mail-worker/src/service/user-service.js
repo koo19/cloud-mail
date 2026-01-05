@@ -16,12 +16,18 @@ import saltHashUtils from '../utils/crypto-utils';
 import constant from '../const/constant';
 import { t } from '../i18n/i18n'
 import reqUtils from '../utils/req-utils';
+import {oauth} from "../entity/oauth";
+import oauthService from "./oauth-service";
 
 const userService = {
 
 	async loginUserInfo(c, userId) {
 
 		const userRow = await userService.selectById(c, userId);
+
+		if (!userRow) {
+			throw new BizError(t('authExpired'), 401);
+		}
 
 		const [account, roleRow, permKeys] = await Promise.all([
 			accountService.selectByEmailIncludeDel(c, userRow.email),
@@ -33,7 +39,7 @@ const userService = {
 		user.userId = userRow.userId;
 		user.sendCount = userRow.sendCount;
 		user.email = userRow.email;
-		user.accountId = account.accountId;
+		user.account = account;
 		user.name = account.name;
 		user.permKeys = permKeys;
 		user.role = roleRow
@@ -51,7 +57,7 @@ const userService = {
 		const { password } = params;
 
 		if (password < 6) {
-			throw new BizError(t('pwdMinLengthLimit'));
+			throw new BizError(t('pwdMinLength'));
 		}
 		const { salt, hash } = await cryptoUtils.hashPassword(password);
 		await orm(c).update(user).set({ password: hash, salt: salt }).where(eq(user.userId, userId)).run();
@@ -94,6 +100,7 @@ const userService = {
 	async physicsDelete(c, params) {
 		const { userId } = params
 		await accountService.physicsDeleteByUserIds(c, [userId])
+		await oauthService.deleteByUserId(c, userId);
 		await orm(c).delete(user).where(eq(user.userId, userId)).run();
 		await c.env.kv.delete(kvConst.AUTH_INFO + userId);
 	},
@@ -130,7 +137,13 @@ const userService = {
 		}
 
 
-		const query = orm(c).select().from(user)
+		const query = orm(c).select({
+			...user,
+			username: oauth.username,
+			trustLevel: oauth.trustLevel,
+			avatar: oauth.avatar,
+			name: oauth.name
+		}).from(user).leftJoin(oauth, eq(oauth.userId, user.userId))
 			.where(and(...conditions));
 
 
@@ -294,12 +307,8 @@ const userService = {
 			throw new BizError(t('notEmailDomain'));
 		}
 
-		if (emailUtils.getName(email).length < 3 || emailUtils.getName(email).length > 30) {
-			throw new BizError(t('emailLengthLimit'));
-		}
-
 		if (password.length < 6) {
-			throw new BizError(t('pwdMinLengthLimit'));
+			throw new BizError(t('pwdMinLength'));
 		}
 
 		const accountRow = await accountService.selectByEmailIncludeDel(c, email);

@@ -1,5 +1,5 @@
 const en = {
-    '收件箱': 'Inbox',
+    inbox: 'Inbox',
     drafts: 'Drafts',
     sent: 'Sent',
     starred: 'Starred',
@@ -150,6 +150,7 @@ const en = {
     resendToken: 'Resend Token',
     oss: 'Object Storage',
     osDomain: 'Domain',
+    ossDomainDesc: 'Leave empty if using KV storage.',
     emailPush: 'Email Push',
     tgBot: 'Telegram Bot',
     disable: 'Disable',
@@ -191,6 +192,7 @@ const en = {
     delSuccessMsg: 'Deleted successfully',
     emptyEmailMsg: 'Email cannot be empty',
     notEmailMsg: 'Invalid email',
+    minEmailPrefix: 'Email must be at least {msg} characters',
     emptyPwdMsg: 'Password cannot be empty',
     pwdLengthMsg: 'Password must be at least 6 characters',
     confirmPwdFailMsg: 'The two passwords do not match',
@@ -292,18 +294,22 @@ const en = {
     include: 'Include',
     delAllEmailConfirm: 'Do you really want to delete it?',
     s3Configuration: 'S3 Configuration',
-    s3Desc: 'If another S3-compatible storage is configured, R2 will take priority if it’s already connected',
     confirmDeletionOfContacts: 'Confirm clearing contacts?',
     recentContacts: 'Recent contacts',
     selectContacts: 'Select',
     forcePathStyleDesc: 'Some self-hosted object storages require path-style access to be enabled',
-    kvStorageDesc: 'Replace object storage with KV, and update the access domain to a Worker custom domain',
-    kvStorage: 'KV Storage',
+    storageType: 'Storage Location',
     customDomainDesc: 'Worker custom domain',
     show: 'Show',
     hide: 'Hide',
     onlyName: 'Only name',
-    emailText: 'Email Text'
+    emailText: 'Email Text',
+    emailPrefix: 'Email Prefix',
+    atLeast: 'At Least',
+    character: '',
+    mustNotContain: 'Must Not Contain',
+    mustNotContainDesc: 'Separate with commas',
+    setSuccess: 'Settings saved successfully'
 }
 
 export default en

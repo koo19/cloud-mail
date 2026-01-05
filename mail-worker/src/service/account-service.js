@@ -6,7 +6,7 @@ import emailService from './email-service';
 import orm from '../entity/orm';
 import account from '../entity/account';
 import { and, asc, eq, gt, inArray, count, sql, ne } from 'drizzle-orm';
-import { isDel, settingConst } from '../const/entity-const';
+import {accountConst, isDel, settingConst} from '../const/entity-const';
 import settingService from './setting-service';
 import turnstileService from './turnstile-service';
 import roleService from './role-service';
@@ -17,7 +17,7 @@ const accountService = {
 
 	async add(c, params, userId) {
 
-		const {addEmailVerify , addEmail, manyEmail, addVerifyCount} = await settingService.query(c);
+		const { addEmailVerify , addEmail, manyEmail, addVerifyCount, minEmailPrefix, emailPrefixFilter } = await settingService.query(c);
 
 		let { email, token } = params;
 
@@ -39,6 +39,13 @@ const accountService = {
 			throw new BizError(t('notExistDomain'));
 		}
 
+		if (emailUtils.getName(email).length < minEmailPrefix) {
+			throw new BizError(t('minEmailPrefix', { msg: minEmailPrefix } ));
+		}
+
+		if (emailPrefixFilter.some(content => emailUtils.getName(email).includes(content))) {
+			throw new BizError(t('banEmailPrefix'));
+		}
 
 		let accountRow = await this.selectByEmailIncludeDel(c, email);
 
@@ -224,8 +231,18 @@ const accountService = {
 		const { accountId } = params
 		await emailService.physicsDeleteByAccountId(c, accountId)
 		await orm(c).delete(account).where(eq(account.accountId, accountId)).run();
-	}
+	},
 
+	async setAllReceive(c, params, userId) {
+		let a = null
+		const { accountId } = params;
+		const accountRow = await this.selectById(c, accountId);
+		if (accountRow.userId !== userId) {
+			return;
+		}
+		await orm(c).update(account).set({ allReceive: accountConst.allReceive.CLOSE }).where(eq(account.userId, userId)).run();
+		await orm(c).update(account).set({ allReceive: accountRow.allReceive ? 0 : 1 }).where(eq(account.accountId, accountId)).run();
+	}
 };
 
 export default accountService;
