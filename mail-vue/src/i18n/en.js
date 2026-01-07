@@ -138,6 +138,7 @@ const en = {
     loginDomain: 'Sign-In Box Domain',
     multipleEmail: 'Multiple Accounts',
     multipleEmailDesc: 'Enable this feature to allow users to add multiple accounts',
+    showGithubIconOnLoginPage: 'Show GitHub Icon on Login Page',
     customization: 'Customization',
     websiteTitle: 'Title',
     loginBoxOpacity: 'Login Box Opacity',

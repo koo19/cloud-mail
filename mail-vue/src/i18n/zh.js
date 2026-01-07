@@ -138,6 +138,7 @@ const zh = {
     loginDomain: '登录框域名',
     multipleEmail: '多号模式',
     multipleEmailDesc: '开启后账号栏出现一个用户可以添加多个邮箱',
+    showGithubIconOnLoginPage: '登录页显示 GitHub 图标',
     customization: '个性化设置',
     websiteTitle: '网站标题',
     loginBoxOpacity: '登录透明',

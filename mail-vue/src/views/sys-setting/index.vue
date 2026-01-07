@@ -71,6 +71,15 @@
                   </el-button>
                 </div>
               </div>
+              <div class="setting-item">
+                <div>
+                  <span>{{ $t('showGithubIconOnLoginPage') }}</span>
+                </div>
+                <div>
+                  <el-switch @change="change" :before-change="beforeChange" :active-value="0" :inactive-value="1"
+                             v-model="setting.showGithub"/>
+                </div>
+              </div>
             </div>
           </div>
 
