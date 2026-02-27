@@ -614,6 +614,7 @@ function submitRegister() {
     margin-top: 5px;
     margin-bottom: 18px;
     color: var(--form-desc-color);
+    text-shadow: 1px 1px 2px color-mix(in srgb, var(--form-desc-color), #fff 80%);
   }
 
   .form-title {
