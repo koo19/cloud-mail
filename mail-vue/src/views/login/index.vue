@@ -692,6 +692,12 @@ function submitRegister() {
   border: 1px solid var(--el-border-color-light);
   box-shadow: var(--el-box-shadow-light);
   cursor: pointer;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+.github:hover {
+  opacity: 1;
 }
 
 :deep(.el-input-group__append) {
