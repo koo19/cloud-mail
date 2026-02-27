@@ -727,9 +727,10 @@ function submitRegister() {
   width: 180px;
 }
 
-
 #login-box {
-  background: linear-gradient(to bottom, #2980b9, #6dd5fa, #fff);
+  background: linear-gradient(to bottom, rgba(41, 128, 185, 0.7), rgba(109, 213, 250, 0.7), rgba(255, 255, 255, 0.7));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); 
   font: 100% Arial, sans-serif;
   height: 100%;
   margin: 0;
@@ -738,7 +739,6 @@ function submitRegister() {
   display: grid;
   grid-template-columns: 1fr;
 }
-
 
 #background-wrap {
   height: 100%;
